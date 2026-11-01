@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         CacheSleuth Snake Cache – Solver
 // @namespace    https://github.com/knutos/snake-cache-solver
-// @version      1.0.0
-// @homepageURL  https://github.com/knutos/snake-cache-solver
+// @version      1.0.1
+// @homepageURL  https://knutos.github.io/snake-cache-solver/
 // @supportURL   https://github.com/knutos/snake-cache-solver/issues
 // @updateURL    https://raw.githubusercontent.com/knutos/snake-cache-solver/main/snake-cache-solver.user.js
 // @downloadURL  https://raw.githubusercontent.com/knutos/snake-cache-solver/main/snake-cache-solver.user.js

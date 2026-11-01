@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Snake Cache Solver</title>
+<meta name="description" content="Userscript that solves CacheSleuth Snake caches automatically.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐍</text></svg>">
+<style>
+  :root {
+    --bg: #f6f7f5; --card: #ffffff; --text: #1d2523; --muted: #5d6b67;
+    --accent: #2f7d5b; --accent-text: #ffffff; --border: #dde3e0; --code: #eef2f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141a19; --card: #1c2422; --text: #e6ece9; --muted: #9aa9a4;
+      --accent: #4fb889; --accent-text: #0d1513; --border: #2c3734; --code: #24302d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 16px 64px; }
+  header h1 { font-size: 2rem; margin: 0 0 4px; }
+  header p { margin: 0; color: var(--muted); }
+  section {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; margin-top: 24px;
+  }
+  h2 { font-size: 1.15rem; margin: 0 0 12px; }
+  ol { padding-left: 1.3em; margin: 0; }
+  li + li { margin-top: 6px; }
+  a { color: var(--accent); }
+  .btn {
+    display: inline-block; background: var(--accent); color: var(--accent-text);
+    font-weight: 700; text-decoration: none; padding: 12px 22px; border-radius: 8px;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+  .version { color: var(--muted); font-size: .95rem; }
+  code { background: var(--code); padding: 1px 6px; border-radius: 4px; font-size: .9em; }
+  footer { margin-top: 32px; color: var(--muted); font-size: .9rem; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>🐍 Snake Cache Solver</h1>
+    <p>Userscript for CacheSleuth Snake caches</p>
+  </header>
+
+  <section>
+    <h2>Install</h2>
+    <ol>
+      <li>Install a userscript manager: <a href="https://www.tampermonkey.net/">Tampermonkey</a> or <a href="https://violentmonkey.github.io/">Violentmonkey</a>.</li>
+      <li>Click the button below, then click <em>Install</em> in the dialog.</li>
+    </ol>
+    <div class="row" style="margin-top:18px">
+      <a class="btn" href="https://raw.githubusercontent.com/knutos/snake-cache-solver/main/snake-cache-solver.user.js">Install script</a>
+      <span class="version" id="version">Latest version: …</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Update</h2>
+    <p style="margin:0 0 10px">The script updates itself. Tampermonkey checks for new versions automatically, about once a day.</p>
+    <p style="margin:0">To update now, open the Tampermonkey dashboard and choose <em>Check for userscript updates</em>, or click <strong>Install script</strong> again.</p>
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <ol>
+      <li>Open the Snake cache link from the cache page (<code>games.cachesleuth.com/snake-cache/?id=…</code>).</li>
+      <li>Click <strong>🤖 Løs Snake</strong> in the bottom-right corner.</li>
+      <li>The panel shows the coordinates, keyword and message when the run is accepted.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>About</h2>
+    <p>Snake Cache Solver plays CacheSleuth's Snake game for you. The game is deterministic. Each new game gets a seed from the server, and that seed fixes where every cache, power-up and piece of litter appears. When you win, the browser sends the list of turns to the server, which replays the game to check it.</p>
+    <p>The script fetches a fresh game and runs an exact copy of the game engine in your browser. It plans a safe route to each cache: a path is used only if the snake can still reach its own tail afterwards, so it never traps itself. Before anything is sent, the script replays the finished run locally to make sure it wins. It then submits the run the same way the game itself does.</p>
+    <p>It handles every board size, both solid and wrapping edges, power-ups and litter. By default it waits about as long as a real game would take before it submits. You can skip the wait with the checkbox in the panel.</p>
+    <p style="margin-bottom:0">Source code, tests and issues are on <a href="https://github.com/knutos/snake-cache-solver">GitHub</a>. MIT licensed.</p>
+  </section>
+
+  <footer>Not affiliated with CacheSleuth.</footer>
+</main>
+<script>
+  fetch('https://raw.githubusercontent.com/knutos/snake-cache-solver/main/snake-cache-solver.user.js', { cache: 'no-store' })
+    .then(r => r.text())
+    .then(t => {
+      const m = t.match(/@version\s+(\S+)/);
+      document.getElementById('version').textContent = m ? 'Latest version: ' + m[1] : '';
+    })
+    .catch(() => { document.getElementById('version').textContent = ''; });
+</script>
+</body>
+</html>

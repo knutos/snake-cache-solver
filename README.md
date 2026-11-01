@@ -1,5 +1,7 @@
 # CacheSleuth Snake Cache – Solver
 
+Homepage: https://knutos.github.io/snake-cache-solver/
+
 A userscript that solves [CacheSleuth](https://www.cachesleuth.com/) Snake caches (`games.cachesleuth.com/snake-cache/?id=…`) automatically.
 
 ## Install
